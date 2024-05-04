@@ -52,7 +52,6 @@ main :-
 
 
 % Dado uma lista de nomes, conta a quantidade de vogais 'a' em cada nome
-
 conta_vogal_a([], 0).
 conta_vogal_a([Head | Tail], QuantidadeVogalA):-
     atom_chars(Head, ListaCaracteres),
@@ -75,4 +74,31 @@ main :-
     write(QuantidadeVogais),
     nl,
     halt.
-    
+
+% Verifica se há elementos negativos em uma lista e retorna uma nova lista com os elementos passados para positovos.
+deixa_positivo([],[]).
+deixa_positivo([Head|Tail], [Head|NovaLista]):- Head >= 0,  deixa_positivo(Tail, NovaLista).
+deixa_positivo([Head|Tail], [AbsHead|NovaLista]):- Head < 0, AbsHead is abs(Head), deixa_positivo(Tail, NovaLista).
+main:-
+    read(Lista),
+    deixa_positivo(Lista, Resposta),
+    write(Resposta).
+
+% Soma os numeros positivos de uma lista.
+sum_positivos([],0).
+sum_positivos([Head|Tail], Soma):- Head > 0, sum_positivos(Tail, Resto), Soma is Head + Resto.
+sum_positivos([Head|Tail], Soma):- Head =< 0, sum_positivos(Tail, Soma).
+main:-
+    read(Lista),
+    sum_positivos(Lista, Resposta),
+    write(Resposta).
+
+% Soma todos os elementos de uma lista.
+soma_nums([],0).
+soma_nums([Head|Tail], Soma):- soma_nums(Tail, Rest), Soma is Head + Rest.
+main:-
+    read(Lista),
+    soma_nums(Lista,Resultado),
+    write(Resultado),
+    halt.
+
